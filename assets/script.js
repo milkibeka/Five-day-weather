@@ -41,7 +41,9 @@ function getWeatherForecast(lat, lon) {
         const todayData = data.list[0];
       const { dt_txt } = todayData;
       const date = moment(dt_txt).format('DD/MM/YYYY');
+      const weatherIcon = todayData.weather[0].icon;
       dateElement.textContent = date;
+      weatherIconElement.src = `http://openweathermap.org/img/w/${weatherIcon}.png`;
       
       })
       .catch(error => {
