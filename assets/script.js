@@ -93,4 +93,11 @@ function getWeatherForecast(lat, lon) {
     return Math.round(kelvin - 273.15);
   }
 }
+document.getElementById("search-button").addEventListener("click", capitalizeInput);
+
+function capitalizeInput() {
+  var input = document.getElementById("search-input");
+  var capitalized = input.value.charAt(0).toUpperCase() + input.value.slice(1).toLowerCase();
+  input.value = capitalized;
+}
 
