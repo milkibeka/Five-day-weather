@@ -42,11 +42,18 @@ function getWeatherForecast(lat, lon) {
       const { dt_txt } = todayData;
       const date = moment(dt_txt).format('DD/MM/YYYY');
       const weatherIcon = todayData.weather[0].icon;
+      const temperature = todayData.main.temp;
+      const windSpeed = todayData.wind.speed;
+      const humidity = todayData.main.humidity;
+      temperatureElement.textContent = `Current Temp: ${kelvinToCelsius(temperature)} °C`;
+      windElement.textContent = `Wind: ${windSpeed} KPH`;
+      humidityElement.textContent = `Humidity: ${humidity}%`;
       const city = searchInput.value;
       temperatureElement.textContent = `Current Temp: ${kelvinToCelsius(temperature)} °C`;
       cityNameElement.textContent = city;
       dateElement.textContent = date;
       weatherIconElement.src = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+      
       
       })
       .catch(error => {
