@@ -5,7 +5,7 @@ function displayCurrentLocation() {
   navigator.geolocation.getCurrentPosition(position => {
     const { latitude, longitude } = position.coords;
 
-    const reverseGeoCodingUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+    const reverseGeoCodingUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
 
     fetch(reverseGeoCodingUrl)
       .then(response => response.json())
@@ -31,7 +31,7 @@ function displayCurrentLocation() {
 // Function to get the weather forecast for the default location
 function getWeatherForecastDefault() {
   const defaultCity = 'Birmingham'; 
-  const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${defaultCity}&appid=${apiKey}`;
+  const geoCodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${defaultCity}&appid=${apiKey}`;
 
   fetch(geoCodingUrl)
     .then(response => response.json())
@@ -66,7 +66,7 @@ searchForm.addEventListener('submit', e => {
   
   const city = searchInput.value;
  
-  const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&appid=${apiKey}`;
+  const geoCodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city},&appid=${apiKey}`;
 
   fetch(geoCodingUrl)
     .then(response => response.json())
@@ -130,7 +130,7 @@ function displayRecentlySearchedCities() {
 }
 function getWeatherForecastByCity(city) {
   searchInput.value = city;
-  const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&appid=${apiKey}`;
+  const geoCodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city},&appid=${apiKey}`;
 
   fetch(geoCodingUrl)
     .then(response => response.json())
@@ -177,7 +177,7 @@ function getWeatherForecast(lat, lon) {
       const city = searchInput.value;
       cityNameElement.textContent = city;
       dateElement.textContent = date;
-      weatherIconElement.src = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+      weatherIconElement.src = `https://openweathermap.org/img/w/${weatherIcon}.png`;
 
       const forecastData = data.list.slice(1, 6);
       forecastSection.innerHTML = '';
@@ -195,7 +195,7 @@ function getWeatherForecast(lat, lon) {
           <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title">${forecastDate}</h5>
-              <img class="card-img-top" src="http://openweathermap.org/img/w/${forecastWeatherIcon}.png" alt="Weather Icon">
+              <img class="card-img-top" src="https://openweathermap.org/img/w/${forecastWeatherIcon}.png" alt="Weather Icon">
               <p class="card-text">Temp: ${kelvinToCelsius(forecastTemperature)} °C</p>
               <p class="card-text">Wind: ${forecastWindSpeed} KPH</p>
               <p class="card-text">Humidity: ${forecastHumidity}%</p>
