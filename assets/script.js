@@ -45,11 +45,10 @@ function getWeatherForecast(lat, lon) {
       const temperature = todayData.main.temp;
       const windSpeed = todayData.wind.speed;
       const humidity = todayData.main.humidity;
-      temperatureElement.textContent = `Current Temp: ${kelvinToCelsius(temperature)} °C`;
+      temperatureElement.textContent = `Temp: ${kelvinToCelsius(temperature)} °C`;
       windElement.textContent = `Wind: ${windSpeed} KPH`;
       humidityElement.textContent = `Humidity: ${humidity}%`;
       const city = searchInput.value;
-      temperatureElement.textContent = `Current Temp: ${kelvinToCelsius(temperature)} °C`;
       cityNameElement.textContent = city;
       dateElement.textContent = date;
       weatherIconElement.src = `http://openweathermap.org/img/w/${weatherIcon}.png`;
@@ -71,7 +70,7 @@ function getWeatherForecast(lat, lon) {
             <div class="card-body">
               <h5 class="card-title">${forecastDate}</h5>
               <img class="card-img-top" src="http://openweathermap.org/img/w/${forecastWeatherIcon}.png" alt="Weather Icon">
-              <p class="card-text">Current Temp: ${kelvinToCelsius(forecastTemperature)} °C</p>
+              <p class="card-text">Temp: ${kelvinToCelsius(forecastTemperature)} °C</p>
               <p class="card-text">Wind: ${forecastWindSpeed} KPH</p>
               <p class="card-text">Humidity: ${forecastHumidity}%</p>
             </div>
