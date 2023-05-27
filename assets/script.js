@@ -9,13 +9,11 @@ const windElement = document.getElementById('wind');
 const humidityElement = document.getElementById('humidity');
 const forecastSection = document.getElementById('forecast-section');
 
-
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
   
   const city = searchInput.value;
  
-  
   const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&appid=${apiKey}`;
 
   fetch(geoCodingUrl)
@@ -32,15 +30,22 @@ searchForm.addEventListener('submit', e => {
       console.error('Error:', error);
     });
 });
+
 function getWeatherForecast(lat, lon) {
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-  
-    fetch(forecastUrl)
-      .then(response => response.json())
-      .then(data => {
-        const todayData = data.list[0];
-      const { dt_txt } = todayData;
-      const date = moment(dt_txt).format('DD/MM/YYYY');
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+  fetch(forecastUrl)
+    .then(response => response.json())
+    .then(data => {
+      const todayData = data.list[0];
+      const today = moment(todayData.dt_txt).format('DD/MM/YYYY');
+      const forecastDays = [];
+
+      for (let i = 1; i <= 5; i++) {
+        forecastDays[i] = moment(todayData.dt_txt).add(i, 'days').format('DD/MM/YYYY');
+      }
+
+      const date = today;
       const weatherIcon = todayData.weather[0].icon;
       const temperature = todayData.main.temp;
       const windSpeed = todayData.wind.speed;
@@ -55,9 +60,9 @@ function getWeatherForecast(lat, lon) {
 
       const forecastData = data.list.slice(1, 6);
       forecastSection.innerHTML = '';
-      forecastData.forEach(item => {
-        const { dt_txt, weather, main, wind, dt } = item;
-        const forecastDate =  moment(dt_txt).format('DD/MM/YYYY');
+      forecastData.forEach((item, i) => {
+        const { weather, main, wind } = item;
+        const forecastDate = forecastDays[i + 1];
         const forecastWeatherIcon = weather[0].icon;
         const forecastTemperature = main.temp;
         const forecastWindSpeed = wind.speed;
@@ -80,11 +85,12 @@ function getWeatherForecast(lat, lon) {
         forecastSection.appendChild(forecastCard);
       });
     })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-      function kelvinToCelsius(kelvin) {
-        return Math.round(kelvin - 273.15);
-      }
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+  function kelvinToCelsius(kelvin) {
+    return Math.round(kelvin - 273.15);
   }
-  
+}
+
