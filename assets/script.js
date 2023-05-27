@@ -56,9 +56,31 @@ function getWeatherForecast(lat, lon) {
 
       const forecastData = data.list.slice(1, 6);
       forecastSection.innerHTML = '';
-      
-      
-      })
+      forecastData.forEach(item => {
+        const { dt_txt, weather, main, wind, dt } = item;
+        const forecastDate =  moment(dt_txt).format('DD/MM/YYYY');
+        const forecastWeatherIcon = weather[0].icon;
+        const forecastTemperature = main.temp;
+        const forecastWindSpeed = wind.speed;
+        const forecastHumidity = main.humidity;
+
+        const forecastCard = document.createElement('div');
+        forecastCard.classList.add('col', 'mb-4');
+        forecastCard.innerHTML = `
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">${forecastDate}</h5>
+              <img class="card-img-top" src="http://openweathermap.org/img/w/${forecastWeatherIcon}.png" alt="Weather Icon">
+              <p class="card-text">Current Temp: ${kelvinToCelsius(forecastTemperature)} °C</p>
+              <p class="card-text">Wind: ${forecastWindSpeed} KPH</p>
+              <p class="card-text">Humidity: ${forecastHumidity}%</p>
+            </div>
+          </div>
+        `;
+
+        forecastSection.appendChild(forecastCard);
+      });
+    })
       .catch(error => {
         console.error('Error:', error);
       });
