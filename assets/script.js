@@ -1,6 +1,14 @@
 const apiKey = '23135be0017efae611741be8622491e2'
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
+const cityNameElement = document.getElementById('city-name');
+const dateElement = document.getElementById('date');
+const weatherIconElement = document.getElementById('weather-icon');
+const temperatureElement = document.getElementById('temperature');
+const windElement = document.getElementById('wind');
+const humidityElement = document.getElementById('humidity');
+const forecastSection = document.getElementById('forecast-section');
+
 
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -31,7 +39,7 @@ function getWeatherForecast(lat, lon) {
       .then(response => response.json())
       .then(data => {
         
-        console.log(data);
+    
       
       })
       .catch(error => {
