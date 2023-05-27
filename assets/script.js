@@ -95,7 +95,8 @@ function addCityToLocalStorage(city) {
 
   // Add the new city to the array
   cities.push(city);
-
+  // Limit the array to the last 6 cities
+  cities = cities.slice(-6);
   // Store the updated array in local storage
   localStorage.setItem('recentlySearchedCities', JSON.stringify(cities));
 }
