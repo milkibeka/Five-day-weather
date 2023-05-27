@@ -38,12 +38,21 @@ function getWeatherForecast(lat, lon) {
     fetch(forecastUrl)
       .then(response => response.json())
       .then(data => {
-        
+        const todayData = data.list[0];
+      const { dt_txt } = todayData;
+      const date = new Date(dt_txt);
+      const formattedDate = formatDate(date);
     
       
       })
       .catch(error => {
         console.error('Error:', error);
       });
+      function formatDate(date) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
   }
   
