@@ -74,6 +74,8 @@ searchForm.addEventListener('submit', e => {
       if (data.length > 0) {
         const { lat, lon } = data[0];
         getWeatherForecast(lat, lon);
+        addCityToLocalStorage(city);
+        displayRecentlySearchedCities();
       } else {
         console.log('No location found.');
       }
@@ -82,6 +84,44 @@ searchForm.addEventListener('submit', e => {
       console.error('Error:', error);
     });
 });
+function addCityToLocalStorage(city) {
+  // Retrieve existing cities from local storage
+  let cities = localStorage.getItem('recentlySearchedCities');
+  if (cities) {
+    cities = JSON.parse(cities);
+  } else {
+    cities = [];
+  }
+
+  // Add the new city to the array
+  cities.push(city);
+
+  // Store the updated array in local storage
+  localStorage.setItem('recentlySearchedCities', JSON.stringify(cities));
+}
+
+function displayRecentlySearchedCities() {
+  // Retrieve recently searched cities from local storage
+  let cities = localStorage.getItem('recentlySearchedCities');
+  if (cities) {
+    cities = JSON.parse(cities);
+
+    // Clear the history element
+    historyElement.innerHTML = '';
+
+    // Display each city in the history element
+    cities.forEach(city => {
+      const listItem = document.createElement('a');
+      listItem.classList.add('list-group-item');
+      listItem.innerText = city;
+      historyElement.appendChild(listItem);
+    });
+  }
+}
+const historyElement = document.getElementById('history');
+
+// Call the displayRecentlySearchedCities function on page load
+displayRecentlySearchedCities();
 
 function getWeatherForecast(lat, lon) {
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -136,6 +176,7 @@ function getWeatherForecast(lat, lon) {
 
         forecastSection.appendChild(forecastCard);
         searchInput.value = '';
+        localStorage.setItem('lastSearchedCity', city);
       });
     })
     .catch(error => {
