@@ -24,3 +24,18 @@ searchForm.addEventListener('submit', e => {
       console.error('Error:', error);
     });
 });
+function getWeatherForecast(lat, lon) {
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  
+    fetch(forecastUrl)
+      .then(response => response.json())
+      .then(data => {
+        
+        console.log(data);
+      
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+  
