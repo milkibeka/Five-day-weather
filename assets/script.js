@@ -83,6 +83,7 @@ function getWeatherForecast(lat, lon) {
         `;
 
         forecastSection.appendChild(forecastCard);
+        searchInput.value = '';
       });
     })
     .catch(error => {
