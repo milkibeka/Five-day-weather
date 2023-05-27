@@ -93,13 +93,19 @@ function addCityToLocalStorage(city) {
     cities = [];
   }
 
-  // Add the new city to the array
-  cities.push(city);
-  // Limit the array to the last 6 cities
-  cities = cities.slice(-6);
-  // Store the updated array in local storage
-  localStorage.setItem('recentlySearchedCities', JSON.stringify(cities));
+  // Check if the city already exists in the array
+  if (!cities.includes(city)) {
+    // Add the new city to the array
+    cities.push(city);
+
+    // Limit the array to the last 6 cities
+    cities = cities.slice(-6);
+
+    // Store the updated array in local storage
+    localStorage.setItem('recentlySearchedCities', JSON.stringify(cities));
+  }
 }
+
 
 function displayRecentlySearchedCities() {
   // Retrieve recently searched cities from local storage
