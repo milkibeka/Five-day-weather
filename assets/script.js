@@ -43,6 +43,7 @@ function getWeatherForecast(lat, lon) {
       const date = moment(dt_txt).format('DD/MM/YYYY');
       const weatherIcon = todayData.weather[0].icon;
       const city = searchInput.value;
+      temperatureElement.textContent = `Current Temp: ${kelvinToCelsius(temperature)} °C`;
       cityNameElement.textContent = city;
       dateElement.textContent = date;
       weatherIconElement.src = `http://openweathermap.org/img/w/${weatherIcon}.png`;
@@ -51,6 +52,8 @@ function getWeatherForecast(lat, lon) {
       .catch(error => {
         console.error('Error:', error);
       });
-      
+      function kelvinToCelsius(kelvin) {
+        return Math.round(kelvin - 273.15);
+      }
   }
   
