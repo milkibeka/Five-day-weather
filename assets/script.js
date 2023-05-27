@@ -1,4 +1,56 @@
 const apiKey = '23135be0017efae611741be8622491e2'
+
+function displayCurrentLocation() {
+  // Use Geolocation API to get the current location coordinates
+  navigator.geolocation.getCurrentPosition(position => {
+    const { latitude, longitude } = position.coords;
+
+    const reverseGeoCodingUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+
+    fetch(reverseGeoCodingUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          const city = data[0].name;
+          searchInput.value = city;
+          getWeatherForecast(latitude, longitude);
+        } else {
+          console.log('No location found.');
+          getWeatherForecastDefault();
+
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, error => {
+    console.error('Error getting current location:', error);
+    getWeatherForecastDefault();
+  });
+}
+// Function to get the weather forecast for the default location
+function getWeatherForecastDefault() {
+  const defaultCity = 'London'; // Set your default city here
+  const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${defaultCity}&appid=${apiKey}`;
+
+  fetch(geoCodingUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        const { lat, lon } = data[0];
+        const city = data[0].name;
+        searchInput.value = city;
+        getWeatherForecast(lat, lon);
+      } else {
+        console.log('No location found for the default city.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+window.addEventListener('load', displayCurrentLocation() );
+
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const cityNameElement = document.getElementById('city-name');
