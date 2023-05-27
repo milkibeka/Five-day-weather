@@ -40,19 +40,13 @@ function getWeatherForecast(lat, lon) {
       .then(data => {
         const todayData = data.list[0];
       const { dt_txt } = todayData;
-      const date = new Date(dt_txt);
-      const formattedDate = formatDate(date);
-    
+      const date = moment(dt_txt).format('DD/MM/YYYY');
+      dateElement.textContent = date;
       
       })
       .catch(error => {
         console.error('Error:', error);
       });
-      function formatDate(date) {
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-      }
+      
   }
   
