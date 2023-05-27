@@ -53,6 +53,9 @@ function getWeatherForecast(lat, lon) {
       cityNameElement.textContent = city;
       dateElement.textContent = date;
       weatherIconElement.src = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+
+      const forecastData = data.list.slice(1, 6);
+      forecastSection.innerHTML = '';
       
       
       })
