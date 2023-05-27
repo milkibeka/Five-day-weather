@@ -114,9 +114,31 @@ function displayRecentlySearchedCities() {
       const listItem = document.createElement('a');
       listItem.classList.add('list-group-item');
       listItem.innerText = city;
+      listItem.addEventListener('click', () => {
+        getWeatherForecastByCity(city);
+      });
       historyElement.appendChild(listItem);
     });
   }
+}
+function getWeatherForecastByCity(city) {
+  searchInput.value = city;
+  const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&appid=${apiKey}`;
+
+  fetch(geoCodingUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        const { lat, lon } = data[0];
+        getWeatherForecast(lat, lon);
+        
+      } else {
+        console.log('No location found.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }
 const historyElement = document.getElementById('history');
 
