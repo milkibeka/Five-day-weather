@@ -30,7 +30,7 @@ function displayCurrentLocation() {
 }
 // Function to get the weather forecast for the default location
 function getWeatherForecastDefault() {
-  const defaultCity = 'London'; // Set your default city here
+  const defaultCity = 'Birmingham'; 
   const geoCodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${defaultCity}&appid=${apiKey}`;
 
   fetch(geoCodingUrl)
