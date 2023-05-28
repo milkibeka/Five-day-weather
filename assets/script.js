@@ -192,10 +192,10 @@ function getWeatherForecast(lat, lon) {
         const forecastCard = document.createElement('div');
         forecastCard.classList.add('col', 'mb-4');
         forecastCard.innerHTML = `
-          <div class="card h-100">
+          <div class="card frcstcard h-100">
             <div class="card-body">
               <h5 class="card-title">${forecastDate}</h5>
-              <img class="card-img-top" src="https://openweathermap.org/img/w/${forecastWeatherIcon}.png" alt="Weather Icon">
+              <img class="card-img-top" style="max-height:5rem; max-width:5rem;" src="https://openweathermap.org/img/w/${forecastWeatherIcon}.png" alt="Weather Icon">
               <p class="card-text">Temp: ${kelvinToCelsius(forecastTemperature)} °C</p>
               <p class="card-text">Wind: ${forecastWindSpeed} KPH</p>
               <p class="card-text">Humidity: ${forecastHumidity}%</p>

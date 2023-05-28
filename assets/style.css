@@ -5,6 +5,7 @@
 }
 body {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: larger;
 }
 .btn {
     background-color:royalblue;
@@ -13,6 +14,10 @@ body {
     border-radius: 30px;
     padding: 5px 14px;
     box-shadow: 0px 2px 5px rosybrown;
+    margin-top: 10px;
+}
+.input-group {
+    justify-content: center;
 }
 .weather-header {
     background-color:darkblue !important ;
@@ -21,4 +26,11 @@ body {
     background-color: lightgrey;
     margin-bottom: 10px;
     color: black;
+}
+.frcstcard {
+    background-color: rgb(32, 32, 83);
+    color: white;
+}
+#city-name {
+    font-size:xx-large;
 }
